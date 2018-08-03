@@ -11,10 +11,10 @@
 require('babel-core/register');
 require('babel-polyfill');
 
-const logger = require('logger').createLogger();
 const app = require('../app').default;
 const debug = require('debug')('express-es-6:server');
 const http = require('http');
+const logger = require('../lib/logger');
 
 /**
  * Normalize a port into a number, string, or false.
