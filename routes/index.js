@@ -1,15 +1,31 @@
-import express from 'express';
 import api from './api';
 
-const router = express.Router();
+export default (app) => {
+    /* USE api route */
+    app.use('/api', api);
 
-/* GET index page. */
-router.get('/', (req, res) => {
-  res.render('index', {
-    title: 'Express'
-  });
-});
+    /* GET index page. */
+    app.get('/(*)?', (req, res) => {
+        res.render('index', {
+            title: 'Express'
+        });
+    });
 
-router.use('/api', api);
-
-export default router;
+    // catch 404 and forward to error handler
+    app.use((req, res, next) => {
+        const err = new Error('Not Found');
+        err.status = 404;
+        next(err);
+    });
+    
+    // error handler
+    /* eslint no-unused-vars: 0 */
+    app.use((err, req, res, next) => {
+        // set locals, only providing error in development
+        res.locals.message = err.message;
+        res.locals.error = req.app.get('env') === 'development' ? err : {};
+        // render the error page
+        res.status(err.status || 500);
+        res.render('error');
+    });
+};
