@@ -6,6 +6,8 @@ import logger from 'morgan';
 import path from 'path';
 import favicon from 'serve-favicon';
 
+const publicCat = path.join(__dirname, '../public');
+
 export default (app) => {
     app.use(logger('dev'));
 
@@ -16,8 +18,8 @@ export default (app) => {
 
     app.use(cookieParser());
 
-    app.use(lessMiddleware(path.join(__dirname, '../public')));
-    app.use(express.static(path.join(__dirname, '../public')));
+    app.use(lessMiddleware(publicCat));
+    app.use(express.static(publicCat));
 
-    app.use(favicon(path.join(__dirname, '../public', 'images/favicon.ico')));
+    app.use(favicon(path.join(publicCat, 'images/favicon.ico')));
 };

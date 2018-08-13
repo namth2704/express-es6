@@ -1,4 +1,21 @@
 {
     "log": "stdout",
-    "logLevel": "info"
+    "logLevel": "info",
+    "contentCache": {
+        "age": 60
+    },
+    "tvsiPriceEndpoint": {
+        "HNX": {
+            "prices": "http://price2.tvsi.com.vn/DataForLoad.ashx?FloorCode=02",
+            "names": "http://price.tvsi.com.vn/HNXSecuritiesName.ashx?FloorCode=02"
+        },
+        "HOSE": {
+            "prices": "http://price2.tvsi.com.vn/DataForLoad.ashx?FloorCode=10",
+            "names": "http://price.tvsi.com.vn/HNXSecuritiesName.ashx?FloorCode=10"
+        },
+        "UPCOM": {
+            "prices": "http://price2.tvsi.com.vn/DataForLoad.ashx?FloorCode=10",
+            "names": "http://price.tvsi.com.vn/HNXSecuritiesName.ashx?FloorCode=10"
+        }
+    }
 }
