@@ -2,26 +2,23 @@ import logger from '../lib/logger';
 
 const getStockPricesFromString = (stockString) => {
     const stockDataStringList = getStockDetailStringList(stockString);
-    return stockDataStringList.map((stockString) => {
+    return stockDataStringList.reduce((accumulator, stockString) => {
         const columnValues = stockString.split('|').map((item) => {
             return item.split(':')[0];
         });
-        return parseStockDataFromOriginalCharacters(columnValues);
-    });
+        const data = parseStockDataFromOriginalCharacters(columnValues);
+        if (data) accumulator.push(data);
+        return accumulator;
+    }, []);
 };
 
-/**
- * Remove all redundant and useless characters from the loaded data: 'var strArrDataRow='stockdata#stockdata...'' and return an array of stockString
- * @param {string} originalDataString 
- * @returns {Array} stockDataStringList
- */
 const getStockDetailStringList = (originalDataString) => {
     return originalDataString && originalDataString.length > 0 ? originalDataString.split('\'')[1].split('#') : [];
 };
 
 const parseStockDataFromOriginalCharacters = (characters) => {
     try {
-        const stock = characters && characters.length > 0 ? {
+        return characters && characters.length > 1 ? {
             ID: characters[0],
             ceil: parseFloat(characters[2]),
             floor: parseFloat(characters[3]),
@@ -50,13 +47,39 @@ const parseStockDataFromOriginalCharacters = (characters) => {
             soldForeign: parseInt(characters[28].replace(',', '')),
             roomForeign: parseInt(characters[29].replace(',', ''))
         } : null;
-        return stock;
     }
     catch (ex) {
-        logger.error(ex);
+        logger.error(`Error when parsing stock data prices: ${ex}`);
+        return {
+            ID: characters[0]
+        }
+    }
+};
+
+const getCompanyNamesFromString = (companyNameString) => {
+    const companyNameStringList = getCompanyNameStringList(companyNameString);
+    return companyNameStringList.map(item => parseCompanyNameToObject(item));
+};
+
+const getCompanyNameStringList = (originalDataString) => {
+    return originalDataString && originalDataString.length > 0 ? originalDataString.match(/\[\"(.*)\"\]/).pop().split('","') : [];
+};
+
+const parseCompanyNameToObject = (companyNameStringList) => {
+    try {
+        const companyNameArray = companyNameStringList && companyNameStringList.length > 0 ? companyNameStringList.split('-') : [];
+        return companyNameArray && companyNameArray.length > 0 ? {
+            ID: companyNameArray[0],
+            name: companyNameArray[1]
+        } : {};
+    }
+    catch (ex) {
+        logger.error(`Error when parsing company name: ${ex}`);
+        return {};
     }
 };
 
 export {
-    getStockPricesFromString
+    getStockPricesFromString,
+    getCompanyNamesFromString
 };
