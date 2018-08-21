@@ -1,33 +1,49 @@
 import { Router } from 'express';
-import fetch from '../../lib/fetch';
-import { getStockPricesFromString, getCompanyNamesFromString } from '../../services/parseStockData';
-import logger from '../../lib/logger';
+import GlobalData from '../../lib/globalData';
 
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.get('/', (req, res) => {
     try {
-        const stockString = await fetch('http://price2.tvsi.com.vn/DataForLoad.ashx?FloorCode=02');
-        const companyNameString = await fetch('http://price.tvsi.com.vn/HNXSecuritiesName.ashx?FloorCode=02');
-        if (stockString && stockString.length > 0 && companyNameString && companyNameString.length > 0) {
-            const stocks = getStockPricesFromString(stockString.toString());
-            const companyNames = getCompanyNamesFromString(companyNameString.toString());
-            if (stocks && companyNames) {
-                const all = stocks.map((item, index) => {
-                    if (companyNames[index] && companyNames[index].name) {
-                        if (companyNames[index].ID == item.ID) item.name = companyNames[index].name;
-                    }
-                    return item;
-                });
-                res.json(all);
-            }
-        } else {
-            res.json([]);
-        }
+        const globalData = new GlobalData();
+        res.json(globalData);
     }
-    catch (ex) {
-        logger.error(`API error: ${ex}`);
-        res.status(500).send('Internal Error Exception');
+    catch(ex) {
+        console.log(ex);
+        res.status(500).send(ex);
+    }
+});
+
+router.get('/hnx', (req, res) => {
+    try {
+        const globalData = new GlobalData();
+        res.json(globalData.HNX);
+    }
+    catch(ex) {
+        console.log(ex);
+        res.status(500).send(ex);
+    }
+});
+
+router.get('/hose', (req, res) => {
+    try {
+        const globalData = new GlobalData();
+        res.json(globalData.HOSE);
+    }
+    catch(ex) {
+        console.log(ex);
+        res.status(500).send(ex);
+    }
+});
+
+router.get('/upcom', (req, res) => {
+    try {
+        const globalData = new GlobalData();
+        res.json(globalData.UPCOM);
+    }
+    catch(ex) {
+        console.log(ex);
+        res.status(500).send(ex);
     }
 });
 

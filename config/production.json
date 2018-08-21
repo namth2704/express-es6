@@ -17,5 +17,6 @@
             "prices": "http://price2.tvsi.com.vn/DataForLoad.ashx?FloorCode=10",
             "names": "http://price.tvsi.com.vn/HNXSecuritiesName.ashx?FloorCode=10"
         }
-    }
+    },
+    "refetchingTime": 15000
 }

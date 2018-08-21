@@ -1,4 +1,4 @@
-import logger from '../lib/logger';
+import logger from '../../lib/logger';
 
 const getStockPricesFromString = (stockString) => {
     const stockDataStringList = getStockDetailStringList(stockString);
