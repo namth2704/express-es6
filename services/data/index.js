@@ -1,11 +1,12 @@
 import config from 'exp-config';
-import GlobalData from '../../lib/globalData';
+import GlobalData, { DataType } from '../../lib/globalData';
 import fetch from '../../lib/fetch';
 import { getStockPricesFromString, getCompanyNamesFromString } from './parseStockData';
 import logger from '../../lib/logger';
 
 const INTERVAL_TIME = config.refetchingTime;
 let timeInterval = false;
+const globalData = new GlobalData();
 
 const getStockData = async (stockType) => {
     try {
@@ -39,12 +40,15 @@ const getStockData = async (stockType) => {
 const storeStockDataToGlobal = () => {
     if (timeInterval) clearInterval(timeInterval);
 
+    const fetchEachStockDataType = async (endpoint, dataType) => {
+        globalData.setData(await getStockData(endpoint), dataType);
+    };
+
     const fetchDataPerMinute = async () => {
         const tvsiEndpoints = config.tvsiPriceEndpoint;
-        const globalData = new GlobalData();
-        globalData.HNX = await getStockData(tvsiEndpoints.HNX);
-        globalData.HOSE = await getStockData(tvsiEndpoints.HOSE);
-        globalData.UPCOM = await getStockData(tvsiEndpoints.UPCOM);
+        fetchEachStockDataType(tvsiEndpoints.HNX, DataType.HNX);
+        fetchEachStockDataType(tvsiEndpoints.HOSE, DataType.HOSE);
+        fetchEachStockDataType(tvsiEndpoints.UPCOM, DataType.UPCOM);
     };
 
     fetchDataPerMinute();
