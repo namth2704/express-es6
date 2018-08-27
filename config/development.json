@@ -18,5 +18,11 @@
             "names": "http://price.tvsi.com.vn/HNXSecuritiesName.ashx?FloorCode=10"
         }
     },
-    "refetchingTime": 3600000
+    "refetchingTime": 3600000,
+    "mysqlConfig": {
+        "user": "root",
+        "password": "",
+        "database": "justanewproject",
+        "connectTimeout": 4000
+    }
 }
