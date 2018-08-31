@@ -6,7 +6,7 @@ const router = Router();
 router.get('/', (req, res) => {
     try {
         const globalData = new GlobalData();
-        res.json(globalData);
+        res.json(globalData.getStockData());
     }
     catch(ex) {
         console.log(ex);
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 router.get('/hnx', (req, res) => {
     try {
         const globalData = new GlobalData();
-        res.json(globalData.HNX);
+        res.json(globalData.getHNX());
     }
     catch(ex) {
         console.log(ex);
@@ -28,7 +28,7 @@ router.get('/hnx', (req, res) => {
 router.get('/hose', (req, res) => {
     try {
         const globalData = new GlobalData();
-        res.json(globalData.HOSE);
+        res.json(globalData.getHOSE());
     }
     catch(ex) {
         console.log(ex);
@@ -39,7 +39,7 @@ router.get('/hose', (req, res) => {
 router.get('/upcom', (req, res) => {
     try {
         const globalData = new GlobalData();
-        res.json(globalData.UPCOM);
+        res.json(globalData.getUPCOM());
     }
     catch(ex) {
         console.log(ex);
