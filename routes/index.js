@@ -1,8 +1,9 @@
-import api from './api';
+import stockPrices from './stockPrices';
+import database from './database';
 
 export default (app) => {
-    /* USE api route */
-    app.use('/api', api);
+    app.use('/db', database);
+    app.use('/prices', stockPrices);
 
     /* GET index page. */
     app.get('/(*)?', (req, res) => {

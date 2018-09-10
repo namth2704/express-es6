@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import GlobalData from '../../lib/globalData';
+import GlobalData from '../lib/globalData';
 
 const router = Router();
 

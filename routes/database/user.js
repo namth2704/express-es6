@@ -1,15 +1,15 @@
 import { Router } from 'express';
-import { GetUserByID, AddUser } from '../../../lib/database';
+import { UserFunctions } from '../../lib/database';
 
 const router = Router();
 
-router.get('/getuser/:id', async (req, res) => {
+router.get('/get/:id', async (req, res) => {
     const params = req.params;
     const id = params ? params.id : null;
 
     if (id) {
         try {
-            const user = await GetUserByID(id);
+            const user = await UserFunctions.GetUserByID(id);
             res.json(user);
         }
         catch (ex) {
@@ -21,12 +21,12 @@ router.get('/getuser/:id', async (req, res) => {
     }
 });
 
-router.post('/adduser', async (req, res) => {
+router.post('/add', async (req, res) => {
     try {
         const username = req.body.name;
         const birthday = req.body.birthday;
         if (username && birthday) {
-            const user = await AddUser(username, birthday);
+            const user = await UserFunctions.AddUser(username, birthday);
             if (user) {
                 res.send(`Add user success: ${user}`);
             }
