@@ -14,8 +14,8 @@
             "names": "http://price.tvsi.com.vn/HNXSecuritiesName.ashx?FloorCode=10"
         },
         "UPCOM": {
-            "prices": "http://price2.tvsi.com.vn/DataForLoad.ashx?FloorCode=10",
-            "names": "http://price.tvsi.com.vn/HNXSecuritiesName.ashx?FloorCode=10"
+            "prices": "http://price2.tvsi.com.vn/DataForLoad.ashx?FloorCode=04",
+            "names": "http://price.tvsi.com.vn/HNXSecuritiesName.ashx?FloorCode=04"
         }
     },
     "refetchingTime": 3600000,

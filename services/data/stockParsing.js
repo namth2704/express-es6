@@ -1,6 +1,6 @@
 import logger from '../../lib/logger';
 
-const getStockPricesFromString = (stockString) => {
+const ParseStockPricesFromString = (stockString) => {
     const stockDataStringList = getStockDetailStringList(stockString);
     return stockDataStringList.reduce((accumulator, stockString) => {
         const columnValues = stockString.split('|').map((item) => {
@@ -56,7 +56,7 @@ const parseStockDataFromOriginalCharacters = (characters) => {
     }
 };
 
-const getCompanyNamesFromString = (companyNameString) => {
+const ParseCompanyNamesFromString = (companyNameString) => {
     const companyNameStringList = getCompanyNameStringList(companyNameString);
     return companyNameStringList.map(item => parseCompanyNameToObject(item));
 };
@@ -79,7 +79,7 @@ const parseCompanyNameToObject = (companyNameStringList) => {
     }
 };
 
-export {
-    getStockPricesFromString,
-    getCompanyNamesFromString
+export default {
+    ParseStockPricesFromString,
+    ParseCompanyNamesFromString
 };
