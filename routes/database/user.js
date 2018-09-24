@@ -8,7 +8,7 @@ router.get('/get/:id', async (req, res) => {
     const id = params ? params.id : null;
 
     try {
-        res.json(await UserFunctions.GetUserByID(id));
+        res.json(await UserFunctions.GetUserById(id));
     }
     catch (ex) {
         res.send(`Error while getting user by id=${id}: ${ex}`);
